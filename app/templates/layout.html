@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}{%- if title %}{{ title }}{% endif -%}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lib/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/lib/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/bootstrap.min.js') }}"></script>
+  </head>
+  <body>
+    <div class="container main-container">
+    {%- with messages = get_flashed_messages(with_categories=true) -%}
+      {%- if messages -%}
+        {%- for category, message in messages -%}
+          {%- if category == 'failed' -%}
+            {%- set class = 'danger' -%}
+          {%- else -%}
+            {%- set class = 'success' -%}
+          {%- endif -%}
+      <div class="alert alert-{{ class }} alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message|safe }}
+      </div>
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endwith -%}
+      <div class="mb-5 page-header">
+        <h3>{% block header %}{%- if header %}{{ header }}{% endif -%}{% endblock %}</h3>
+      </div>
+    {%- block body %}{% endblock -%}
+      <footer class="mt-5 page-footer">
+        <ul class="list-inline text-center">
+          <li class="list-inline-item"><a href="{{ url_for('about') }}">About</a></li>
+          <li class="list-inline-item"><a href="http://github.com/recite/re-cite.org">Code</a></li>
+          <li class="list-inline-item"><a href="{{ url_for('contact') }}">Contact</a></li>
+        </ul>
+        <div class="text-center">© 2018 Copyright:
+          <a href="#"> re-cite.org</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

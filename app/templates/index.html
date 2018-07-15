@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+{%- if text %}
+  {%- set btn_txt = 'Clear result' %}
+  {%- set btn_cls = 'btn-secondary' %}
+  {%- set readonly = ' readonly' %}
+{% else %}
+  {%- set btn_txt = 'Check citations' %}
+  {%- set btn_cls = 'btn-info' %}
+  {%- set readonly = '' %}
+{% endif -%}
+<div class="sub-container">
+  <div class="backdrop">
+    <div class="highlights">{%- if highlights %}{{ highlights|safe }}{% endif %}</div>
+  </div>
+  <textarea placeholder="Paste lists of APA citations to see which have been retracted..."{{ readonly }}>{%- if text %}{{ text }}{% endif %}</textarea>
+</div>
+<form action="" method="post">
+  <input type="hidden" name="citations" id="citations" value="">
+  <button class="col-12 col-sm-6 btn {{ btn_cls }}">{{ btn_txt }}</button>
+</form>
+<script src="{{ url_for('static', filename='js/recite.js') }}"></script>
+{% endblock %}
