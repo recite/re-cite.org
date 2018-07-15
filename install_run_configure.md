@@ -1,4 +1,4 @@
-## Installation, Run, and Configure
+## Install, Run, and Configure
 
 * [Installation](#installation)
     - [System Requirements](#system-requirements)
@@ -9,7 +9,9 @@
 
 * [Configure](#configure)
 
-### Installation
+------
+
+### Install
 
 To install the application, run [setup.sh](setup.sh). `setup.sh` is a `bash` script that does the following:
 
