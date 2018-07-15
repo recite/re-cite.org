@@ -13,7 +13,7 @@
   <div class="backdrop">
     <div class="highlights">{%- if highlights %}{{ highlights|safe }}{% endif %}</div>
   </div>
-  <textarea placeholder="Paste lists of APA citations to see which have been retracted..."{{ readonly }}>{%- if text %}{{ text }}{% endif %}</textarea>
+  <textarea placeholder="Paste a list of APA citations to see which ones have been retracted..."{{ readonly }}>{%- if text %}{{ text }}{% endif %}</textarea>
 </div>
 <form action="" method="post">
   <input type="hidden" name="citations" id="citations" value="">
