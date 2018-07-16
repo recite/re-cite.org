@@ -19,11 +19,13 @@ We start by ingesting the [database of retracted articles](https://github.com/re
 
 * Export the final database with APA references to a CSV to check the correctness of references, etc. using [export.py](export.py)
 
-
-
 ### Authors
 
 Ken Cor, Gaurav Sood, and Khanh Tran
+
+### Contributor Code of Conduct
+
+The project welcomes contributions from everyone! In fact, it depends on it. To maintain this welcoming atmosphere, and to collaborate in a fun and productive way, we expect contributors to the project to abide by the [Contributor Code of Conduct](https://www.contributor-covenant.org/version/1/4/code-of-conduct).
 
 ### License
 
