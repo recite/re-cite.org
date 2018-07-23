@@ -58,7 +58,10 @@ Start and stop the `recite` application in production mode as follows:
 $> systemctl start recite.service
 $> systemctl stop recite.service
 $> systemctl restart recite.service
+$> systemctl status recite.service
 ```
+
+View runtime logs or errors of `recite` application in production mode by command: `journalctl -u recite.service`
 
 [wsgi.ini](wsgi.ini) keeps the runtime config settings for the `recite` application when it is called as a `WSGI` module.
 
