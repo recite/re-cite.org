@@ -10,14 +10,18 @@ We start by ingesting the [database of retracted articles](https://github.com/re
 
 ### Code
 
-* [Code organization](code_structure.md)
+* [Code organization](data/code_structure.md)
 
-* [Directions for installing, configuring, and running the application](install_run_configure.md)
+* [Directions for installing, configuring, and running the application](docs/install_run_configure.md)
 
 * [Create Database and valid APA References](freshdb.py)
-    - Implements the logic discussed [here](create_apa_cites.md)
+    - Implements the logic discussed [here](docs/create_apa_cites.md)
 
 * Export the final database with APA references to a CSV to check the correctness of references, etc. using [export.py](export.py)
+
+* UI
+    - [app/static](app/static) has js, images, and css
+    - [app/templates](app/templates) has the HTML files
 
 ### Authors
 
