@@ -4,10 +4,15 @@
     <title>{% block title %}{%- if title %}{{ title }}{% endif -%}{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lib/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/lib/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link charset="utf-8" href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" media="screen" rel="stylesheet">
+    <link charset="utf-8" href="//fonts.googleapis.com/css?family=Roboto%20Condensed:400" media="screen" rel="stylesheet">
     <script src="{{ url_for('static', filename='js/lib/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/bootstrap.js') }}"></script>
     <script src="{{ url_for('static', filename='js/lib/bootstrap.min.js') }}"></script>
+    <script charset="utf-8" src="//www.gstatic.com/external_hosted/modernizr/modernizr.js"></script>
   </head>
   <body>
     <div class="container main-container">
