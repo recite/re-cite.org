@@ -1,10 +1,10 @@
 # -*- coding: ascii -*-
 """Main config file of project."""
 
-# Database configuration
+# PostgreSQL database configuration
 DB_SETTINGS = {
     'host': 'localhost',
-    'port': ,
+    'port': 5432,
     'dbname': '',
     'user': '',
     'passwd': ''
