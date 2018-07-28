@@ -13,7 +13,7 @@ body {
   height: 360px;
   margin: 0 auto;
   background-color: #fff;
-  border: 2px solid #007bff;
+  border: 2px solid #17a2b8;
   border-radius: 1rem;
   transform: translateZ(0);
   -webkit-text-size-adjust: none;
@@ -75,4 +75,9 @@ button:not(.close) {
   font-weight: 600 !important;
   border-radius: 6px !important;
   margin: 30px auto 0;
+}
+
+.navbar {
+    color: #FFFFFF;
+    background-color: #17a2b8;
 }
