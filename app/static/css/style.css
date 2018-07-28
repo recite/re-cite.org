@@ -19,9 +19,8 @@ body {
   -webkit-text-size-adjust: none;
 }
 
-.btn-info{
-
-background-color: #006dcc;
+btn-info{
+  background-color: #006dcc;
 }
 
 .backdrop {
