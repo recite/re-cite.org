@@ -61,7 +61,7 @@ def handle_post(data, **kwargs):
 
     # No highlights or matches found
     if highlights is None:
-        flash('No citations found. Likely reason is that citations were not in the correct format.', 'failed')
+        flash('No citations found. Likely reason: citations were not in the correct format.', 'failed')
         highlights = data
 
     # Highlights found
