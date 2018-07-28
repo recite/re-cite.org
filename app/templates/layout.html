@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="{{ url_for('static', filename='js/lib/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/lib/bootstrap.min.js') }}"></script>
+    <script>
+      $(document).ready(function() {
+      $('li.active').removeClass('active');
+      $('a[href="' + location.pathname + '"]').closest('li').addClass('active'); 
+    });
+    </script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
