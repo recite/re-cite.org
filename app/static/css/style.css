@@ -76,3 +76,7 @@ button:not(.close) {
   border-radius: 6px !important;
   margin: 30px auto 0;
 }
+
+.nav > li > a:hover{
+    background-color:#FCC;
+}
