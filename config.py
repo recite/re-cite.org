@@ -15,7 +15,7 @@ MAX_EDIT_DISTANCE = 3
 
 # Index page
 INDEX_PAGE_TITLE = 'Highlight citations to retracted articles.'
-INDEX_PAGE_HEADER = 're-cite.org'
+INDEX_PAGE_HEADER = ''
 
 # About page
 ABOUT_PAGE_TITLE = 'About re-cite.org'
