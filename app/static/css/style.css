@@ -81,7 +81,7 @@ button:not(.close) {
   background-color: #17a2b8;
 }
 .navbar .navbar-brand {
-  color: #e8e4e4;
+  color: #fff;
 }
 .navbar .navbar-brand:hover,
 .navbar .navbar-brand:focus {
