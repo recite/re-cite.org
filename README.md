@@ -4,6 +4,8 @@
 
 Paste citations in APA format, click 'check citations', and voila!
 
+![Illustration](https://github.com/recite/re-cite.org/blob/master/re-cite.gif)
+
 ### How Does it Work?
 
 We start by ingesting the [database of retracted articles](https://github.com/recite/retracted_article_database). We then use the APA rules to create valid APA references for each article in the database. (There can be more than one valid reference per article. For instance, if an article is presented at a conference before it is published, where we have the information, we will produce two citations---one for the published piece and one for the conference. We are assuming that when the published article is retracted, the conference paper is technically retracted as well.) At the front-end, the web application parses the pasted text into a list of citations, normalizes the text (converting unicode to ascii and nuking extra spaces), and then highlights any citations that are an exact match based on the DOI or the complete reference, or any citations with a maximum Levenshtein edit distance of 3.  
