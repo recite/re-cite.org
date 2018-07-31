@@ -60,14 +60,9 @@
       </div>
     {%- block body %}{% endblock -%}
       <footer class="mt-5 page-footer">
-        <!--ul class="list-inline text-center">
-          <li class="list-inline-item"><a href="{{ url_for('index') }}">Home</a></li>
-          <li class="list-inline-item"><a href="{{ url_for('about') }}">About Us</a></li>
-          <li class="list-inline-item"><a href="http://github.com/recite/re-cite.org">GitHub</a></li>
-          <li class="list-inline-item"><a href="{{ url_for('contact') }}">Contact Us</a></li>
-        </ul-->
-        <div class="text-center">© 2018 Copyright:
-          <a href="http://re-cite.org">re-cite.org</a>
+        Unsure about how to use the site? Here's a <a class="nav-link" href="{{ url_for('how_to') }}">short video</a> to help you get started.
+        <div class="text-center">
+          © 2018 Copyright: <a href="http://re-cite.org">re-cite.org</a>
         </div>
       </footer>
     </div>

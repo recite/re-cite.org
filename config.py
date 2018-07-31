@@ -24,3 +24,7 @@ ABOUT_PAGE_HEADER = 'About'
 # Contact page
 CONTACT_PAGE_TITLE = 'Contact Us'
 CONTACT_PAGE_HEADER = 'Contact Us'
+
+# How to page
+HOWTO_PAGE_TITLE = 'How to use re-cite.org'
+HOWTO_PAGE_HEADER = 'How to use re-cite.org'

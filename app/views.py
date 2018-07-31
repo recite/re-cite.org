@@ -111,3 +111,14 @@ def contact():
         'header': app.config['CONTACT_PAGE_HEADER']
     }
     return render_template('contact.html', **kwargs)
+
+
+@app.route('/how_to')
+def about():
+    """Renders About page"""
+
+    kwargs = {
+        'title': app.config['HOWTO_PAGE_TITLE'],
+        'header': app.config['HOWTO_PAGE_HEADER']
+    }
+    return render_template('how_to.html', **kwargs)
