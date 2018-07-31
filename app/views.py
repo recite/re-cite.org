@@ -114,7 +114,7 @@ def contact():
 
 
 @app.route('/how_to')
-def about():
+def how_to():
     """Renders About page"""
 
     kwargs = {
