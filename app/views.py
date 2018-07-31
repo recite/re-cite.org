@@ -114,8 +114,8 @@ def contact():
 
 
 @app.route('/how_to')
-def about():
-    """Renders About page"""
+def how_to():
+    """Renders How To page"""
 
     kwargs = {
         'title': app.config['HOWTO_PAGE_TITLE'],
