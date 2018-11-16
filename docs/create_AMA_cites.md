@@ -30,6 +30,6 @@ We do not implement all the APA citation rules given we have limited kinds of re
 
     We only implement rules for Papers and Poster Sessions listed [here](https://med.fsu.edu/userFiles/file/AmericanMedicalAssociationStyleJAMA.pdf). If an article has both "article_title" and "conf_title", we generate two separate citations for the article---one for the conference, other for the journal article. Rules for multiple authors are the same as above.
 
-* **Verifying Work**
+**Verifying Work**
 
-    We verify the references we produce by comparing against [http://scholar.google.com](scholar.google.com) and some manual sifting.
+We verify the references we produce by comparing against [http://scholar.google.com](scholar.google.com) and some manual sifting.
