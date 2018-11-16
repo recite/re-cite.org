@@ -24,7 +24,7 @@ We do not implement all the APA citation rules given we have limited kinds of re
 
 * **Online Articles**
 
-    We ignore online articles because we don't have them in our data. But the general rules are phere](http://library.nymc.edu/informatics/amastyle.cfm). Add the phrase 'retrieved from' when building references. Rules for the number of authors are the same as for journal articles. 
+    We ignore online articles because we don't have them in our data. But the general rules are [here](http://library.nymc.edu/informatics/amastyle.cfm). Add the phrase 'retrieved from' when building references. Rules for the number of authors are the same as for journal articles. 
 
 * **Conference Papers**
 
