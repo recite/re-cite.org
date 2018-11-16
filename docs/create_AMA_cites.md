@@ -24,12 +24,12 @@ We do not implement all the APA citation rules given we have limited kinds of re
 
 * **Online Articles**
 
-We ignore online articles because we don't have them in our data. But the general rules are phere](http://library.nymc.edu/informatics/amastyle.cfm). Add the phrase 'retrieved from' when building references. Rules for the number of authors are the same as for journal articles. 
+    We ignore online articles because we don't have them in our data. But the general rules are phere](http://library.nymc.edu/informatics/amastyle.cfm). Add the phrase 'retrieved from' when building references. Rules for the number of authors are the same as for journal articles. 
 
 * **Conference Papers**
 
-We only implement rules for Papers and Poster Sessions listed [here](https://med.fsu.edu/userFiles/file/AmericanMedicalAssociationStyleJAMA.pdf). If an article has both "article_title" and "conf_title", we generate two separate citations for the article---one for the conference, other for the journal article. Rules for multiple authors are the same as above.
+    We only implement rules for Papers and Poster Sessions listed [here](https://med.fsu.edu/userFiles/file/AmericanMedicalAssociationStyleJAMA.pdf). If an article has both "article_title" and "conf_title", we generate two separate citations for the article---one for the conference, other for the journal article. Rules for multiple authors are the same as above.
 
 * **Verifying Work**
 
-We verify the references we produce by comparing against [http://scholar.google.com](scholar.google.com) and some manual sifting.
+    We verify the references we produce by comparing against [http://scholar.google.com](scholar.google.com) and some manual sifting.
