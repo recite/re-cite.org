@@ -4,7 +4,7 @@ We do not implement all the APA citation rules given we have limited kinds of re
 
 * **Journal Articles**
 
-    * We use rules specified here: https://med.fsu.edu/userFiles/file/AmericanMedicalAssociationStyleJAMA.pdf
+    * We use rules (e.g handling multiple authors) specified [here](https://med.fsu.edu/sites/default/files/userFiles/file/AmericanMedicalAssociationStyleJAMA.pdf)
 
     * We ignore:
         * Journal Supplements
@@ -13,18 +13,15 @@ We do not implement all the APA citation rules given we have limited kinds of re
         * Dictionary
         * Unpublished Material
         * CDROM
+        
+	* Abbreviated journal names are available from Web of Science Journal Title Abbreviations [here](https://images.webofknowledge.com/images/help/WOS/A_abrvjt.html)
 
-    * We implement rules for number of authors specified [here (pdf)](https://med.fsu.edu/userFiles/file/AmericanMedicalAssociationStyleJAMA.pdf) but ignore:
-        - Two or More Works by the Same Author. People citing multiple retracted articles by the same author is uncommon. We leave it for later.
-        - Introductions, Prefaces, Forewords, and Afterwords
+    * We implement organization/group plus author and special issue rules according to the guide linked to above
 
-    * If there is a group_author, we follow advice from https://med.fsu.edu/userFiles/file/AmericanMedicalAssociationStyleJAMA.pdf
-
-    * If the article is a special issue, follow directions [here](https://med.fsu.edu/userFiles/file/AmericanMedicalAssociationStyleJAMA.pdf)
 
 * **Online Articles**
 
-    We ignore online articles because we don't have them in our data. But the general rules are [here](http://library.nymc.edu/informatics/amastyle.cfm). Add the phrase 'retrieved from' when building references. Rules for the number of authors are the same as for journal articles. 
+    We ignore online articles because we don't have them in our data but the general rules are provided in the guide linked to above.
 
 * **Conference Papers**
 
