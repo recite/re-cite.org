@@ -1,10 +1,10 @@
 body {
-  margin: 0px;
+  margin: 0;
   background-color: #ffffff;
 }
 
 .main-container {
-   max-width: 768px;
+  max-width: 768px;
 }
 
 .sub-container {
