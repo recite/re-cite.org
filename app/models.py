@@ -70,6 +70,8 @@ class Citation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     #: value of citation as unicode string, required
     value = db.Column(db.Text, nullable=False)
+    #: Citation format name
+    type = db.Column(db.String, nullable=False)
     #: a reference to the article to which the citation belongs to
     article_id = db.Column(db.Integer, db.ForeignKey('retracted_articles.id'), nullable=False)
 

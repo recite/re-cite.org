@@ -319,12 +319,12 @@ def gen_citations(**fields):
     # Article reference
     if fields.get('article_title'):
         ret.append(
-            Citation(value=gen_article_citation(**fields), article_id=fields['id'])
+            Citation(value=gen_article_citation(**fields), article_id=fields['id'], type='apa_journal')
         )
     # Conference reference
     if fields.get('conf_title'):
         ret.append(
-            Citation(value=gen_conf_citation(**fields), article_id=fields['id'])
+            Citation(value=gen_conf_citation(**fields), article_id=fields['id'], type='apa_conference')
         )
     # Return all generated citations or empty if not found
     return ret
