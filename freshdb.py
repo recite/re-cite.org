@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 # -*- coding: ascii -*-
 
 """
@@ -13,20 +14,23 @@ import os
 import re
 import csv
 import time
-from datetime import datetime
 from argparse import ArgumentParser
 from collections import namedtuple, OrderedDict
 from functools import partial
 from app import db
 from app.models import Article, Citation
+from styles import APA, AMA
 
 # Convention of fields in CSV file
-CsvRow = namedtuple('CsvRow', 'author author_full_name group_author article_title pub_name conf_title conf_date \
-conf_location researcher_id orcid pub_date pub_year volume issue special_issue begin_page end_page article_number doi \
-pubmed_id index')
+CsvRow = namedtuple('CsvRow', 'author author_full_name group_author '
+                              'article_title pub_name conf_title conf_date '
+                              'conf_location researcher_id orcid pub_date '
+                              'pub_year volume issue special_issue begin_page '
+                              'end_page article_number doi pubmed_id index')
 
 # Function for refining value of article title field
-refine_article_title = partial(re.compile(r'\s*(\(retract(ed|ion)[^()]*\))\s*$', flags=re.IGNORECASE).sub, '')
+refine_article_title = partial(re.compile(r'\s*(\(retract(ed|ion)[^()]*\))\s*$',
+                                          flags=re.IGNORECASE).sub, '')
 
 # Function for parsing list of authors from author field
 parse_author = re.compile(r'([A-Za-z-]{2,})(, ?([A-Z]+))?').match
@@ -37,12 +41,20 @@ parse_initial = re.compile(r'([A-Z])').findall
 # Function for parsing year from date fields
 parse_year = re.compile(r'([0-9]{4}|[a-zA-Z]{3}-([0-9]{2,4}))').findall
 
+# Citation Types
+APA_JNL = 'apa_journal'
+APA_CNF = 'apa_conference'
+AMA_JNL = 'ama_journal'
+AMA_CNF = 'ama_conference'
+
 
 def get_args(*params):
     """Parses and reads input arguments from command line."""
 
     parser = ArgumentParser(description='Refresh database by input CSV')
-    parser.add_argument('file', metavar='FILE', help='retracted articles file in CSV format')
+    parser.add_argument('file', metavar='FILE',
+                        help='retracted articles file in CSV format')
+
     args = parser.parse_args(*params)
 
     # Check file input
@@ -100,7 +112,7 @@ def clear_data():
 
 
 def db_init_or_reset():
-    """Initialize database if starting afresh. 
+    """Initialize database if starting a fresh.
     Cleanup if database already exists."""
 
     if db.engine.has_table(Article.__tablename__):
@@ -113,17 +125,29 @@ def gen_citations(**fields):
     """Generate all citations for a specific article based on article data."""
 
     ret = []
-    # Article reference
-    if fields.get('article_title'):
-        ret.append(
-            Citation(value=gen_article_citation(**fields), article_id=fields['id'], type='apa_journal')
-        )
-    # Conference reference
-    if fields.get('conf_title'):
-        ret.append(
-            Citation(value=gen_conf_citation(**fields), article_id=fields['id'], type='apa_conference')
-        )
-    # Return all generated citations or empty if not found
+    id_ = fields['id']
+
+    # Generate styles
+    apa = APA(**fields)
+    ama = AMA(**fields)
+
+    # Add APA Journal
+    if apa.journal:
+        ret.append(Citation(value=apa.journal, type=APA_JNL, article_id=id_))
+
+    # Add APA Conference
+    if apa.conference:
+        ret.append(Citation(value=apa.conference, type=APA_CNF, article_id=id_))
+
+    # Add AMA Journal
+    if ama.journal:
+        ret.append(Citation(value=ama.journal, type=AMA_JNL, article_id=id_))
+
+    # Add AMA Conference
+    if ama.conference:
+        ret.append(Citation(value=ama.conference, type=AMA_CNF, article_id=id_))
+
+    # Return generated citations or empty
     return ret
 
 
@@ -182,7 +206,10 @@ def main():
             articles = Article.query.all()
             objects = []
             for article in articles:
-                fields = {k: v for k, v in article.__dict__.items() if not k.startswith('_')}
+                fields = {
+                    k: v for k, v in article.__dict__.items()
+                    if not k.startswith('_')
+                }
                 objects.extend(gen_citations(**fields))
 
             if objects:
