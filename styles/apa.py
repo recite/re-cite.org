@@ -10,6 +10,8 @@ from . import parse_author, parse_year
 
 __all__ = ['APA']
 
+CONFERENCE_PREFIX = 'Paper presented at'
+
 
 def gen_author(author, group_author=None):
     """
@@ -131,14 +133,31 @@ def gen_doi(doi):
     return ' doi:%s' % doi if doi else ''
 
 
-def gen_location(location):
-    """Generates location string in APA format from original location."""
-    if location:
-        location = ' Paper presented at %s' % location
-        if not location.endswith('.'):
-            location += '.'
-        return location
-    return ''
+def gen_conf(title, location):
+    """
+    Generates conference info in APA format.
+
+    :param title:    conference title
+    :param location: location where conference was conducted
+    :return:         conference info (str)
+    """
+
+    conf = ''
+    if title or location:
+        conf += ' %s ' % CONFERENCE_PREFIX
+
+        if title:
+            conf += title
+            if location:
+                conf += ', '
+
+        if location:
+            conf += location
+
+        if not conf.endswith('.'):
+            conf += '.'
+
+    return conf
 
 
 class APA:
@@ -171,6 +190,6 @@ class APA:
             self.conference = fmt.format(
                 author=author,
                 date=gen_date(kwargs.get('conf_date')),
-                title=gen_title(kwargs.get('conf_title')),
-                last=gen_location(kwargs.get('conf_location'))
+                title=gen_title(kwargs.get('article_title')),
+                last=gen_conf(kwargs.get('conf_title'), kwargs.get('conf_location'))
             ).strip()
