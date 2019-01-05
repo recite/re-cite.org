@@ -6,19 +6,9 @@ styles.apa
 Generate APA style for article.
 """
 
-import re
-from datetime import datetime
+from . import parse_author, parse_year
 
 __all__ = ['APA']
-
-# Function for parsing list of authors from author field
-parse_author = re.compile(r'([A-Za-z-]{2,})(, ?([A-Z]+))?').match
-
-# Function for parsing initials from a name of author
-parse_initial = re.compile(r'([A-Z])').findall
-
-# Function for parsing year from date fields
-parse_year = re.compile(r'([0-9]{4}|[a-zA-Z]{3}-([0-9]{2,4}))').findall
 
 
 def gen_author(author, group_author=None):
@@ -33,21 +23,9 @@ def gen_author(author, group_author=None):
     :rtype:                 str
     """
 
-    authors = []
+    authors = parse_author(author, surname_sep=', ',
+                           initial_sep=' ', initial_suffix='.')
 
-    # Parse author field
-    if author:
-        for matched in (parse_author(i.strip()) for i in author.split(';')):
-            if matched:
-                lastname, _, initials = matched.groups()
-                lastname = lastname.capitalize()
-                if initials:
-                    initials = ' '.join(i + '.' for i in parse_initial(initials))
-                    authors.append(', '.join((lastname, initials)))
-                    continue
-                authors.append(lastname)
-
-    # Parse group_author field
     if group_author:
         authors.append(group_author.title())
 
@@ -83,33 +61,9 @@ def gen_date(date, year=None):
     :rtype:         str
     """
 
-    # Parse year in date if no 'year' input
-    if year is None:
-        if date:
-            try:
-                parsed = parse_year(date)[0]
-            except IndexError:
-                pass
-            else:
-                if parsed[0].isdigit():
-                    year = parsed[0]
-                elif parsed[-1].isdigit():
-                    year = parsed[-1]
-
-    # Generates and returns date annotation (year only) in APA format
-    if year is not None and year.isdigit():
-        datefmt = '%Y' if len(year) == 4 else '%y'
-        try:
-            dp = datetime.strptime(year, datefmt)
-        except ValueError:
-            pass
-        else:
-            cur_year = datetime.now().year
-            if dp.year > cur_year:
-                dp = dp.replace(year=dp.year-100)
-            return ' (%s).' % dp.year
-
-    # Return empty if errors or no year found
+    year = parse_year(year) or parse_year(date)
+    if year:
+        return ' (%s).' % year
     return ''
 
 
