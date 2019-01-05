@@ -9,7 +9,7 @@ Parsers for citation styles.
 import re
 from datetime import datetime
 
-__all__ = ['parse_author', 'parse_year']
+__all__ = ['parse_author', 'parse_year', 'parse_date']
 
 # Find author name
 find_author = re.compile(r'([A-Za-z-]{2,})(, ?([A-Z]+))?').match
