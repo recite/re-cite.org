@@ -20,6 +20,12 @@ find_initial = re.compile(r'([A-Z])').findall
 # Find year in string
 find_year = re.compile(r'([0-9]{4}|[a-zA-Z]{3}-([0-9]{2,4}))').findall
 
+# Find month in string
+find_month = re.compile(r'([a-zA-Z]{3})').findall
+
+# Find day or day range in string
+find_day = re.compile(r'\b(\d{1,2}(?:-\d{1,2})?)\b(?!$)').findall
+
 
 def parse_author(text, surname_sep=' ', initial_sep='', initial_suffix=''):
     """
@@ -51,7 +57,7 @@ def parse_year(datestring):
     Parse input text and return year string in 4-digit format.
 
     :param datestring: input text to parse
-    :return:     4-digit year or empty if not found
+    :return:           4-digit year or empty
     """
 
     year = ''
@@ -85,3 +91,34 @@ def parse_year(datestring):
             year = str(dp.year)
 
     return year
+
+
+def parse_date(datestring):
+    """
+    Parses input datestring and returns date in correct format.
+
+    :param datestring: input datestring to parse
+    :return:           parsed date or empty
+    """
+
+    def day_format(daystring):
+        """Returns 2-digit of day"""
+        f = lambda x: '{:02d}'.format(int(x.strip()))
+        if '-' in daystring:
+            return '-'.join(f(i) for i in daystring.split('-') if i.strip())
+        return f(daystring)
+
+    date = ''
+    months = [m.capitalize() for m in find_month(datestring)]
+    if months:
+        days = [day_format(d) for d in find_day(datestring)]
+        if days:
+            date += '-'.join('{} {}'.format(m, d) for m, d in zip(months, days))
+        else:
+            date += '-'.join(months)
+
+    year = parse_year(datestring)
+    if year:
+        date += '{}{}'.format(', ' if date else '', year)
+
+    return date
