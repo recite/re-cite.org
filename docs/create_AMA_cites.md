@@ -1,10 +1,14 @@
 ## Creating Valid AMA Citation(s) for Each Row
 
-We do not implement all the APA citation rules given we have limited kinds of research in our database. Here's what we have implemented, split by type of research:  
+We do not implement all the APA citation rules given we have limited kinds of research in our database. Here's what we have implemented, split by type of research:
 
 * **Journal Articles**
 
     * We use rules (e.g handling multiple authors) specified [here](https://med.fsu.edu/sites/default/files/userFiles/file/AmericanMedicalAssociationStyleJAMA.pdf)
+      Additional Resource that we refer to:
+        * [University of Waterloo AMA Style Guide](http://subjectguides.uwaterloo.ca/c.php?g=695555&p=4931907)
+        * [University of Illinois at Chicago AMA Guide](https://researchguides.uic.edu/ld.php?content_id=10003294)
+        * [BCIT AMA Style Guide](https://www.bcit.ca/files/library/pdf/bcit-ama_citation_guide.pdf)
 
     * We ignore:
         * Journal Supplements
@@ -13,7 +17,7 @@ We do not implement all the APA citation rules given we have limited kinds of re
         * Dictionary
         * Unpublished Material
         * CDROM
-        
+
 	* Abbreviated journal names are available from Web of Science Journal Title Abbreviations [here](https://images.webofknowledge.com/images/help/WOS/A_abrvjt.html)
 
     * We implement organization/group plus author and special issue rules according to the guide linked to above
