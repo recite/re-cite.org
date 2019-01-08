@@ -9,7 +9,7 @@ Parsers for citation styles.
 import re
 from datetime import datetime
 
-__all__ = ['parse_author', 'parse_year', 'parse_date']
+__all__ = ['parse_author', 'parse_year', 'parse_date', 'parse_page']
 
 # Find author name
 find_author = re.compile(r'([A-Za-z-]{2,})(, ?([A-Z]+))?').match
@@ -122,3 +122,19 @@ def parse_date(datestring):
         date += '{}{}'.format(', ' if date else '', year)
 
     return date
+
+
+def parse_page(begin_page, end_page):
+    """
+    Parses and returns page range from begin to end.
+
+    :param begin_page: begining page number
+    :param end_page:   ending page number
+    :return:           page range or empty string
+    """
+
+    if begin_page:
+        if end_page and end_page != '+':
+            return '%s-%s' % (begin_page, end_page)
+        return begin_page
+    return ''

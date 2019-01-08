@@ -6,11 +6,11 @@ styles.apa
 Generate APA style for article.
 """
 
-from . import parse_author, parse_year
+from .parsers import parse_author, parse_year, parse_page
 
 __all__ = ['APA']
 
-CONFERENCE_PREFIX = 'Paper presented at'
+CONFERENCE_PREFIX = 'Paper presented at '
 
 
 def gen_author(author, group_author=None):
@@ -119,10 +119,7 @@ def gen_journal(title, volume, issue, begin_page, end_page):
         elif issue:
             ret += ', (%s)' % issue
         if begin_page:
-            if end_page and end_page != '+':
-                ret += ', %s-%s' % (begin_page, end_page)
-            else:
-                ret += ', %s' % begin_page
+            ret += ', %s' % parse_page(begin_page, end_page)
         if not ret.endswith('.'):
             ret += '.'
     return ret
@@ -144,7 +141,7 @@ def gen_conf(title, location):
 
     conf = ''
     if title or location:
-        conf += ' %s ' % CONFERENCE_PREFIX
+        conf += ' %s' % CONFERENCE_PREFIX
 
         if title:
             conf += title
