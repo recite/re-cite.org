@@ -27,7 +27,7 @@ CsvRow = namedtuple(
     [
         'id', 'author', 'author_full_name', 'group_author', 'article_title', 'pub_name', 'pub_date', 'pub_year',
         'volume', 'issue', 'special_issue', 'begin_page', 'end_page', 'conf_title', 'conf_date', 'conf_location',
-        'article_number', 'index', 'doi', 'apa'
+        'article_number', 'index', 'doi', 'citation', 'type'
     ]
 )
 
@@ -88,7 +88,9 @@ def main():
             if not k.startswith('_') and k != 'citations'
         }
         for citation in article.citations:
-            rows.append(CsvRow(**fields, apa=citation.value))
+            rows.append(
+                CsvRow(**fields, citation=citation.value, type=citation.type)
+            )
 
     # Write to file
     write_csv(args.file, rows)
