@@ -7,16 +7,20 @@ Generate AMA style for article.
 """
 
 from types import SimpleNamespace
-from . import parse_author, parse_date, parse_year
+from .wos import WOS
+from .parsers import parse_author, parse_date, parse_year, parse_page
 
 __all__ = ['AMA']
 
-CONFERENCE_PREFIX = 'In:'
+CONFERENCE_PREFIX = 'In: '
 
 
 class AMA:
     def __init__(self, **kwargs):
         self._f = SimpleNamespace(**kwargs)
+        self._wos = WOS()
+        self._journal = None
+        self._conference = None
 
     @property
     def _authors(self):
@@ -37,18 +41,80 @@ class AMA:
         return ''
 
     @property
-    def journal(self):
+    def _journal_title(self):
+        name = self._f.pub_name
+        if name:
+            return self._wos.abbreviate(name) or name
         return ''
 
     @property
+    def journal(self):
+        if self._journal is None:
+            # Generate volume and issue
+            vol = ''
+            if self._f.volume:
+                vol += self._f.volume
+            if self._f.issue:
+                vol += '(%s)' % self._f.issue
+
+            # Generate page range
+            page = parse_page(self._f.begin_page, self._f.end_page)
+
+            # Generate year or date
+            year = ''
+            if self._f.pub_year or self._f.pub_date:
+                if vol:
+                    year = parse_year(self._f.pub_year) or parse_year(self._f.pub_date)
+                else:
+                    year = parse_date(self._f.pub_date) or parse_date(self._f.pub_year)
+
+            # Construct last part
+            last = year
+            if vol:
+                last += '{}{}'.format(';' if last else '', vol)
+            if page:
+                last += '{}{}'.format(':' if last else '', page)
+
+            # Construct journal citation
+            journal = '. '.join(
+                i for i in (
+                    self._authors,
+                    self._title,
+                    self._journal_title,
+                    last
+                ) if i
+            )
+
+            # Store journal citation
+            self._journal = journal + '.' if not journal.endswith('.') else journal
+
+        # Return value
+        return self._journal
+
+    @property
     def conference(self):
-        conf = '; '.join(
-            i for i in (
-                self._f.conf_title,
-                parse_date(self._f.conf_date),
-                self._f.conf_location) if i)
+        if self._conference is None:
+            # Construct conference info
+            conf = '; '.join(
+                i for i in (
+                    self._f.conf_title,
+                    parse_date(self._f.conf_date),
+                    self._f.conf_location
+                ) if i
+            )
 
-        if conf:
-            conf = '%s %s' % (CONFERENCE_PREFIX, conf)
+            # Construct conference citation
+            if conf:
+                conf = '. '.join(
+                    i for i in (
+                        self._authors,
+                        self._title,
+                        '%s%s' % (CONFERENCE_PREFIX, conf)
+                    ) if i
+                )
 
-        return '. '.join(i for i in (self._authors, self._title, conf) if i)
+            # Store conference citation
+            self._conference = conf + '.' if not conf.endswith('.') else conf
+
+        # Return value
+        return self._conference
