@@ -18,7 +18,7 @@ We do not implement all the APA citation rules given we have limited kinds of re
         * Unpublished Material
         * CDROM
 
-	* Abbreviated journal names are available from Web of Science Journal Title Abbreviations [here](https://images.webofknowledge.com/images/help/WOS/A_abrvjt.html)
+	* Abbreviated journal names are available from Web of Science Journal Title Abbreviations (WOS) [here](https://images.webofknowledge.com/images/help/WOS/A_abrvjt.html) (for journal names which do not have their related abbreviations or the abbreviations are showed as blank in WOS, just keep the journal names as is)
 
     * We implement organization/group plus author and special issue rules according to the guide linked to above
 
