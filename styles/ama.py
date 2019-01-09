@@ -50,43 +50,45 @@ class AMA:
     @property
     def journal(self):
         if self._journal is None:
-            # Generate volume and issue
-            vol = ''
-            if self._f.volume:
-                vol += self._f.volume
-            if self._f.issue:
-                vol += '(%s)' % self._f.issue
+            self._journal = ''
+            if self._f.article_title:
+                # Generate volume and issue
+                vol = ''
+                if self._f.volume:
+                    vol += self._f.volume
+                if self._f.issue:
+                    vol += '(%s)' % self._f.issue
 
-            # Generate page range
-            page = parse_page(self._f.begin_page, self._f.end_page)
+                # Generate page range
+                page = parse_page(self._f.begin_page, self._f.end_page)
 
-            # Generate year or date
-            year = ''
-            if self._f.pub_year or self._f.pub_date:
+                # Generate year or date
+                year = ''
+                if self._f.pub_year or self._f.pub_date:
+                    if vol:
+                        year = parse_year(self._f.pub_year)
+                    else:
+                        year = parse_date(self._f.pub_date, self._f.pub_year)
+
+                # Construct last part
+                last = year
                 if vol:
-                    year = parse_year(self._f.pub_year)
-                else:
-                    year = parse_date(self._f.pub_date, self._f.pub_year)
+                    last += '{}{}'.format(';' if last else '', vol)
+                if page:
+                    last += '{}{}'.format(':' if last else '', page)
 
-            # Construct last part
-            last = year
-            if vol:
-                last += '{}{}'.format(';' if last else '', vol)
-            if page:
-                last += '{}{}'.format(':' if last else '', page)
+                # Construct journal citation
+                journal = '. '.join(
+                    i for i in (
+                        self._authors,
+                        self._title,
+                        self._journal_title,
+                        last
+                    ) if i
+                )
 
-            # Construct journal citation
-            journal = '. '.join(
-                i for i in (
-                    self._authors,
-                    self._title,
-                    self._journal_title,
-                    last
-                ) if i
-            )
-
-            # Store journal citation
-            self._journal = journal + '.' if not journal.endswith('.') else journal
+                # Store journal citation
+                self._journal = journal + '.' if not journal.endswith('.') else journal
 
         # Return value
         return self._journal
@@ -94,27 +96,29 @@ class AMA:
     @property
     def conference(self):
         if self._conference is None:
-            # Construct conference info
-            conf = '; '.join(
-                i for i in (
-                    self._f.conf_title,
-                    parse_date(self._f.conf_date),
-                    self._f.conf_location
-                ) if i
-            )
-
-            # Construct conference citation
-            if conf:
-                conf = '. '.join(
+            self._conference = ''
+            if self._f.conf_title:
+                # Construct conference info
+                conf = '; '.join(
                     i for i in (
-                        self._authors,
-                        self._title,
-                        '%s%s' % (CONFERENCE_PREFIX, conf)
+                        self._f.conf_title,
+                        parse_date(self._f.conf_date),
+                        self._f.conf_location
                     ) if i
                 )
 
-            # Store conference citation
-            self._conference = conf + '.' if not conf.endswith('.') else conf
+                # Construct conference citation
+                if conf:
+                    conf = '. '.join(
+                        i for i in (
+                            self._authors,
+                            self._title,
+                            '%s%s' % (CONFERENCE_PREFIX, conf)
+                        ) if i
+                    )
+
+                # Store conference citation
+                self._conference = conf + '.' if not conf.endswith('.') else conf
 
         # Return value
         return self._conference
