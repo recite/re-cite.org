@@ -64,9 +64,9 @@ class AMA:
             year = ''
             if self._f.pub_year or self._f.pub_date:
                 if vol:
-                    year = parse_year(self._f.pub_year) or parse_year(self._f.pub_date)
+                    year = parse_year(self._f.pub_year)
                 else:
-                    year = parse_date(self._f.pub_date) or parse_date(self._f.pub_year)
+                    year = parse_date(self._f.pub_date, self._f.pub_year)
 
             # Construct last part
             last = year
