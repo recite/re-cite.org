@@ -7,7 +7,7 @@ Parsers for citation styles.
 """
 
 import re
-from datetime import datetime
+import datetime
 
 __all__ = ['parse_author', 'parse_year', 'parse_date', 'parse_page']
 
@@ -25,6 +25,9 @@ find_month = re.compile(r'([a-zA-Z]{3})').findall
 
 # Find day or day range in string
 find_day = re.compile(r'\b(\d{1,2}(?:-\d{1,2})?)\b(?!$)').findall
+
+# All available months
+all_months = [datetime.date(2018, i, 1).strftime('%b') for i in range(1, 13)]
 
 
 def parse_author(text, surname_sep=' ', initial_sep='', initial_suffix=''):
@@ -81,11 +84,11 @@ def parse_year(datestring):
     if year:
         fmt = '%Y' if len(year) == 4 else '%y'
         try:
-            dp = datetime.strptime(year, fmt)
+            dp = datetime.datetime.strptime(year, fmt)
         except ValueError:
             pass
         else:
-            cur_year = datetime.now().year
+            cur_year = datetime.datetime.now().year
             if dp.year > cur_year:
                 dp = dp.replace(year=dp.year - 100)
             year = str(dp.year)
@@ -93,11 +96,12 @@ def parse_year(datestring):
     return year
 
 
-def parse_date(datestring):
+def parse_date(datestring, year=None):
     """
     Parses input datestring and returns date in correct format.
 
     :param datestring: input datestring to parse
+    :param year:       input year, used for year parsing if being set
     :return:           parsed date or empty
     """
 
@@ -110,14 +114,14 @@ def parse_date(datestring):
 
     date = ''
     months = [m.capitalize() for m in find_month(datestring)]
-    if months:
+    if months and set(months) <= set(all_months):
         days = [day_format(d) for d in find_day(datestring)]
         if days:
             date += '-'.join('{} {}'.format(m, d) for m, d in zip(months, days))
         else:
             date += '-'.join(months)
 
-    year = parse_year(datestring)
+    year = parse_year(year) if year else parse_year(datestring)
     if year:
         date += '{}{}'.format(', ' if date else '', year)
 
