@@ -76,4 +76,4 @@ class Citation(db.Model):
     article_id = db.Column(db.Integer, db.ForeignKey('retracted_articles.id'), nullable=False)
 
     def __repr__(self):
-        return '<Citation value=%r, article_id=%r>' % (self.value, self.article_id)
+        return '<Citation value=%r, type=%r, article_id=%r>' % (self.value, self.type, self.article_id)
