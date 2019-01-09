@@ -21,26 +21,52 @@ __all__ = [
 ]
 
 
-# Parse input text into citations
-parse_citations = re.compile(
-    (
-        r'((?#authors)[\w_-]{2,}(?: *,(?: *[A-Z]\.)+|(?: +[\w_-]+)+)?'
-        r'(?: *,(?: *(?:&|\.{3}))? *[\w_-]{2,}(?: *,(?: *[A-Z]\.)+|(?: +[\w_-]+)+)?)*(?:(?<=\.)|(?<!\.) *\.)'
-        r'(?#date) *\( *\d{4}(?: *, *\w+(?: +\d+(?: *- *\d+)?)?)? *\) *\.'
-        r'(?#title)[^\n]+(?:(?<=\.)|(?<!\.)\.)'
-        r'(?#journal|location)(?<=\.)(?:[^\n]+?(?=, *\d+ *\([\w-]+\)|, *\w+(?:-\w+)? *\.|\.)'
-        r'(?#journal:volume)(?:, *\d+ *\([\w-]+\))?(?#journal:pages)(?:, *\w+(?:-\w+)?)? *\.)?'
-        r'(?#doi)(?: *(?:doi: *|http://dx\.doi\.org/)[^\s]+)?)'
-    ),
-    flags=re.IGNORECASE + re.DOTALL
-).findall
+# Find citations from text
+find_citations = [
+    # APA style
+    re.compile(
+        (
+            r'((?#authors)[\w-]{2,}(?: *,(?: *[A-Z]\.)+|(?: +[\w-]+)+)?'
+            r'(?: *,(?: *(?:&|\.{3}))? *[\w-]{2,}(?: *,(?: *[A-Z]\.)+|(?: +[\w-]+)+)?)*(?:(?<=\.)|(?<!\.) *\.)'
+            r'(?#date) *\( *\d{4}(?: *, *\w+(?: +\d+(?: *- *\d+)?)?)? *\) *\.'
+            r'(?#title)[^\n]+(?:(?<=\.)|(?<!\.)\.)'
+            r'(?#journal|location)(?<=\.)(?:[^\n]+?(?=, *\d+ *\([\w-]+\)|, *\w+(?:-\w+)? *\.|\.)'
+            r'(?#journal:volume)(?:, *\d+ *\([\w-]+\))?(?#journal:pages)(?:, *\w+(?:-\w+)?)? *\.)?'
+            r'(?#doi)(?: *(?:doi: *|http://dx\.doi\.org/)[^\s]+)?)'
+        ),
+        flags=re.IGNORECASE + re.DOTALL
+    ).findall,
 
+    # AMA style
+    re.compile(
+        (
+            r'(?:\n|^)'
+            r'((?#authors)(?:[\w-]{2,}(?: +[A-Z]+)?(?: *, *[\w-]{2,}(?: +[A-Z]+)?)* *\.)?'
+            r'(?#title) *\w{2}[^\n;.]+\.(?#title:journal|conference) *\w{2}[^\n;.]+'
+            r'(?:(?#journal)\.(?#date) *(?:[a-z]{3}(?: +\d{1,2})? *, *)?\d{4}'
+            r'(?#volume)(?: *;(?: *\d+)?(?: *\( *[\w-]+ *\))?)?'
+            r'(?#page)(?: *: *\w+(?: *- *\w+)?)?|(?#conference)'
+            r'(?#date); *(?:[a-z]{3}(?: +\d+(?: *- *(?:\d+|[a-z]{3} +\d+))?)? *, *)?\d{4}'
+            r'(?#location)(?: *; *\w{2}[^\n;.]+)?) *\.'
+            r'(?#doi)(?: *(?:doi: *|http://dx\.doi\.org/)[^\s]+)?)'
+        ),
+        flags=re.IGNORECASE + re.DOTALL
+    ).findall
+]
 
 # Parse DOI in citation
 parse_doi = re.compile(
     r'(?:doi: *|http://dx\.doi\.org/)([^\s]+)',
     flags=re.IGNORECASE
 ).findall
+
+
+def parse_citations(text):
+    """Parse text into list of citations"""
+    ret = []
+    for finder in find_citations:
+        ret.extend(finder(text))
+    return ret
 
 
 def parse_db_uri(conf):
