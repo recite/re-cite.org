@@ -12,7 +12,7 @@ We start by ingesting the [database of retracted articles](https://github.com/re
 
 ### Code
 
-* [Code organization](data/code_structure.md)
+* [Code organization](docs/code_structure.md)
 
 * [Directions for installing, configuring, and running the application](docs/install_run_configure.md)
 
