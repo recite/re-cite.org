@@ -1,6 +1,6 @@
 ## Find Citations to Retracted Articles
 
-The now archived http://re-cite.org highlighted citations to retracted articles. 
+The now **archived** re-cite.org highlighted citations to retracted articles. 
 
 Illustration:
 
