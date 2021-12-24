@@ -1,6 +1,8 @@
 ## Find Citations to Retracted Articles
 
-[http://re-cite.org](http://re-cite.org) highlights citations to retracted articles. 
+The now archived http://re-cite.org highlighted citations to retracted articles. 
+
+Illustration:
 
 Paste citations in APA format, click 'check citations', and voila!
 
